@@ -20,8 +20,8 @@ bower install console.table --save
 
 ```
 // call once somewhere in the beginning of the app
-require('console.table');
-console.table([
+var table = require('console.table');
+table([
   {
     name: 'foo',
     age: 10
@@ -38,7 +38,7 @@ foo   10
 bar   20
 ```
 
-You can pass multiple strings and arrays in a single console.table call.
+You can pass multiple strings and arrays in a single .table call.
 Each argument will be formatted and printed separately on new line
 
 ## Use in browser
@@ -46,9 +46,9 @@ Each argument will be formatted and printed separately on new line
 **INCOMPLETE, PROBABLY CHROME ONLY FOR NOW**
 
 ```html
-<script src="bower_components/console.table/dist/console.table.js"></script>
+<script src="bower_components/table/dist/table.js"></script>
 <script>
-console.table([{name: 'foo'}, {name: 'bar'}]);
+table([{name: 'foo'}, {name: 'bar'}]);
 </script>
 ```
 
@@ -61,7 +61,7 @@ If first argument is a string, and a second argument is an array, prints
 title row
 
 ```sh
-console.table('Several objects', [...]);
+table('Several objects', [...]);
 
 Several objects
 ---------------
@@ -81,7 +81,7 @@ var values = [
   ['max', 20],
   ['joe', 30]
 ];
-console.table(['name', 'age'], values);
+table(['name', 'age'], values);
 
 name  age
 ----  ---
@@ -97,7 +97,7 @@ var values = [
     ['max', 20],
     ['joe', 30]
 ]
-console.table(values[0], values.slice(1));
+table(values[0], values.slice(1));
 ```
 
 ### Small print

@@ -3,9 +3,9 @@
 var expect = require('expect.js');
 var assert = require('better-assert');
 var sinon = require('sinon');
-
+var table;
 function loadMethod() {
-  require('../index');
+  table = require('../index');
 }
 
 function cleanLoadedCache() {
@@ -13,27 +13,22 @@ function cleanLoadedCache() {
   delete require.cache[require.resolve('../index')];
 }
 
-function deleteTableMethod() {
-  delete console.table;
-}
-
-describe('console.table', function () {
+describe('table', function () {
   beforeEach(cleanLoadedCache);
-  afterEach(deleteTableMethod);
 
   it('fills missing method', function () {
-    expect(console.table).to.be(undefined);
+    expect(table).to.be(undefined);
   });
 
   it('installs html method', function () {
     loadMethod();
-    expect(typeof console.table).to.be('function');
+    expect(typeof table).to.be('function');
   });
 
   it('logs simple string', function () {
     loadMethod();
     sinon.spy(console, 'log');
-    console.table('foo');
+    table('foo');
     assert(console.log.firstCall.calledWith('foo'));
     console.log.restore();
   });
@@ -41,7 +36,7 @@ describe('console.table', function () {
   it('logs several strings separately', function () {
     loadMethod();
     sinon.spy(console, 'log');
-    console.table('foo', 'bar');
+    table('foo', 'bar');
     assert(console.log.firstCall.calledWith('foo'));
     assert(console.log.secondCall.calledWith('bar'));
     console.log.restore();
@@ -49,7 +44,7 @@ describe('console.table', function () {
 
   it('can print title', function () {
     loadMethod();
-    console.table('These are numbers', [1, 2, 3]);
+    table('These are numbers', [1, 2, 3]);
   });
 
   it('objects with title', function () {
@@ -68,23 +63,21 @@ describe('console.table', function () {
       }
     ];
     loadMethod();
-    console.table('Several objects', objects);
+    table('Several objects', objects);
   });
 });
 
-describe('console.table object', function () {
+describe('table object', function () {
   beforeEach(function () {
     cleanLoadedCache();
     loadMethod();
   });
 
-  afterEach(deleteTableMethod);
-
   it('prints an object', function () {
-    console.table({ foo: 'foo', bar: 'bar' });
+    table({ foo: 'foo', bar: 'bar' });
   });
 
   it('prints an object', function () {
-    console.table('this is an object', { foo: 'foo', bar: 'bar' });
+    table('this is an object', { foo: 'foo', bar: 'bar' });
   });
 });
